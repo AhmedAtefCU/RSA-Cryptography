@@ -94,3 +94,6 @@ def main():
     # User Input: Define variables for plaintext message
     plaintext = input("\nEnter the plaintext message: ")
     
+    # Encryption
+    encrypted_msg = encrypt(plaintext, public_key)
+    print("\nEncrypted message:", ''.join(map(str, encrypted_msg)))
