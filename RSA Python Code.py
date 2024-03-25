@@ -111,3 +111,6 @@ def main():
     brute_force_d = brute_force_private_exponent(public_key)
     print("Brute Force Private Exponent (d):", brute_force_d)
 
+# Run the program
+if __name__ == "__main__":
+    main()
