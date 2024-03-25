@@ -22,3 +22,10 @@ function gcd(a, b):
     while b is not 0:
         a, b = b, a % b
     return a
+
+function extended_gcd(a, b):
+    if a is 0:
+        return (b, 0, 1)
+    else:
+        gcd_val, x, y = extended_gcd(b % a, a)
+        return (gcd_val, y - (b // a) * x, x)
