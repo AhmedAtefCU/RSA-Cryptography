@@ -90,3 +90,7 @@ def main():
     public_key, private_key = generate_keys(bits)
     print("\nPublic Key (e, n):", public_key)
     print("Private Key (d, n):", private_key)
+    
+    # User Input: Define variables for plaintext message
+    plaintext = input("\nEnter the plaintext message: ")
+    
