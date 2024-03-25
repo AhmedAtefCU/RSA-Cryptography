@@ -43,3 +43,12 @@ def generate_keys(bits):
     q = generate_large_prime(bits // 2)
     n = p * q
     phi = (p - 1) * (q - 1)
+    
+    while True:
+        e = random.randrange(2, phi)
+        if gcd(e, phi) == 1:
+            break
+    
+    gcd_val, x, y = extended_gcd(e, phi)
+    d = x % phi
+    return ((e, n), (d, n))
