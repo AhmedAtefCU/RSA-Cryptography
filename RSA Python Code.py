@@ -15,3 +15,10 @@ def is_prime(n):
             return False
         i += 6
     return True
+
+def generate_large_prime(bits):
+    # Generate a large prime number 
+    while True:
+        p = random.randint(2**(bits-1), 2**bits)
+        if is_prime(p):
+            return p
