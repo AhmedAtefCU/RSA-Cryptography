@@ -22,3 +22,9 @@ def generate_large_prime(bits):
         p = random.randint(2**(bits-1), 2**bits)
         if is_prime(p):
             return p
+        
+def gcd(a, b):
+    # Calculate the Greatest Common Divisor of two numbers 
+    while b != 0:
+        a, b = b, a % b
+    return a
