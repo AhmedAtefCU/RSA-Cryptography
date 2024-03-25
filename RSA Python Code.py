@@ -97,3 +97,8 @@ def main():
     # Encryption
     encrypted_msg = encrypt(plaintext, public_key)
     print("\nEncrypted message:", ''.join(map(str, encrypted_msg)))
+    
+    # Decryption
+    decrypted_msg = decrypt(encrypted_msg, private_key)
+    print("Decrypted message:", decrypted_msg)
+    
