@@ -29,3 +29,16 @@ function extended_gcd(a, b):
     else:
         gcd_val, x, y = extended_gcd(b % a, a)
         return (gcd_val, y - (b // a) * x, x)
+    
+function generate_keys(bits):
+    p = generate_large_prime(bits / 2)
+    q = generate_large_prime(bits / 2)
+    n = p * q
+    phi = (p - 1) * (q - 1)
+    while True:
+        e = random integer between 2 and phi
+        if gcd(e, phi) == 1:
+            break
+    gcd_val, x, y = extended_gcd(e, phi)
+    d = x % phi
+    return ((e, n), (d, n))
