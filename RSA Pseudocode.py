@@ -11,3 +11,14 @@ function is_prime(n):
             return False
         i += 6
     return True
+
+function generate_large_prime(bits):
+    while True:
+        p = random integer between 2^(bits-1) and 2^bits
+        if is_prime(p):
+            return p
+
+function gcd(a, b):
+    while b is not 0:
+        a, b = b, a % b
+    return a
