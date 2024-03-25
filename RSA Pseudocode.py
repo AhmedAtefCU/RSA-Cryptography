@@ -64,3 +64,23 @@ function brute_force_private_exponent(public_key):
     for d from 2 to phi:
         if (d * e) % phi == 1:
             return d
+        
+function main():
+    print("RSA Encryption and Decryption\n")
+    bits = input("Enter the number of bits for key generation: ")
+    public_key, private_key = generate_keys(bits)
+    print("\nPublic Key (e, n):", public_key)
+    print("Private Key (d, n):", private_key)
+    plaintext = input("\nEnter the plaintext message: ")
+    encrypted_msg = encrypt(plaintext, public_key)
+    print("\nEncrypted message:", ''.join(map(str, encrypted_msg)))
+    decrypted_msg = decrypt(encrypted_msg, private_key)
+    print("Decrypted message:", decrypted_msg)
+    n = public_key[1]
+    p, q = factorize_modulus(n)
+    print("\nFactorized Modulus (p, q):", (p, q))
+    brute_force_d = brute_force_private_exponent(public_key)
+    print("Brute Force Private Exponent (d):", brute_force_d)
+
+if __name__ == "__main__":
+    main()
