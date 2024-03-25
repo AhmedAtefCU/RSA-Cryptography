@@ -37,3 +37,9 @@ def extended_gcd(a, b):
         gcd_val, x, y = extended_gcd(b % a, a)
         return (gcd_val, y - (b // a) * x, x)
 
+def generate_keys(bits):
+    # Generate RSA public and private keys 
+    p = generate_large_prime(bits // 2)
+    q = generate_large_prime(bits // 2)
+    n = p * q
+    phi = (p - 1) * (q - 1)
