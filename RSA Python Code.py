@@ -58,3 +58,9 @@ def encrypt(message, public_key):
     e, n = public_key
     encrypted_msg = [pow(ord(char), e, n) for char in message]
     return encrypted_msg
+
+def decrypt(encrypted_msg, private_key):
+    # Decrypt a message using RSA 
+    d, n = private_key
+    decrypted_msg = [chr(pow(char, d, n)) for char in encrypted_msg]
+    return ''.join(decrypted_msg)
