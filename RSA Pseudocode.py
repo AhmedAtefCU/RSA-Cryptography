@@ -42,3 +42,25 @@ function generate_keys(bits):
     gcd_val, x, y = extended_gcd(e, phi)
     d = x % phi
     return ((e, n), (d, n))
+
+function encrypt(message, public_key):
+    e, n = public_key
+    encrypted_msg = [pow(ord(char), e, n) for char in message]
+    return encrypted_msg
+
+function decrypt(encrypted_msg, private_key):
+    d, n = private_key
+    decrypted_msg = [chr(pow(char, d, n)) for char in encrypted_msg]
+    return concatenate all characters in decrypted_msg into a single string
+
+function factorize_modulus(n):
+    for i in range from 2 to sqrt(n) + 1:
+        if n is divisible by i:
+            return i, n / i
+
+function brute_force_private_exponent(public_key):
+    e, n = public_key
+    phi = n - 1
+    for d from 2 to phi:
+        if (d * e) % phi == 1:
+            return d
