@@ -28,3 +28,12 @@ def gcd(a, b):
     while b != 0:
         a, b = b, a % b
     return a
+
+def extended_gcd(a, b):
+    # Extended Euclidean Algorithm to find the modular inverse 
+    if a == 0:
+        return (b, 0, 1)
+    else:
+        gcd_val, x, y = extended_gcd(b % a, a)
+        return (gcd_val, y - (b // a) * x, x)
+
