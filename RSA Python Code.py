@@ -52,3 +52,9 @@ def generate_keys(bits):
     gcd_val, x, y = extended_gcd(e, phi)
     d = x % phi
     return ((e, n), (d, n))
+
+def encrypt(message, public_key):
+    # Encrypt a message using RSA 
+    e, n = public_key
+    encrypted_msg = [pow(ord(char), e, n) for char in message]
+    return encrypted_msg
