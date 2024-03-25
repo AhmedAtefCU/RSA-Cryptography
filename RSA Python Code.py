@@ -64,3 +64,10 @@ def decrypt(encrypted_msg, private_key):
     d, n = private_key
     decrypted_msg = [chr(pow(char, d, n)) for char in encrypted_msg]
     return ''.join(decrypted_msg)
+
+# Factorize modulus into its prime factors (p and q)
+def factorize_modulus(n):
+    # Factorize modulus into its prime factors 
+    for i in range(2, int(math.sqrt(n)) + 1):
+        if n % i == 0:
+            return i, n // i
