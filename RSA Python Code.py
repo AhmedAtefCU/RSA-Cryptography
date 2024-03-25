@@ -102,3 +102,7 @@ def main():
     decrypted_msg = decrypt(encrypted_msg, private_key)
     print("Decrypted message:", decrypted_msg)
     
+    # Factorize modulus
+    n = public_key[1]
+    p, q = factorize_modulus(n)
+    print("\nFactorized Modulus (p, q):", (p, q))
