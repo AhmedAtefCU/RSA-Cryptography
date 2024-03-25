@@ -106,3 +106,8 @@ def main():
     n = public_key[1]
     p, q = factorize_modulus(n)
     print("\nFactorized Modulus (p, q):", (p, q))
+    
+    # Brute force private exponent
+    brute_force_d = brute_force_private_exponent(public_key)
+    print("Brute Force Private Exponent (d):", brute_force_d)
+
