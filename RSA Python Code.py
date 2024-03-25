@@ -72,3 +72,11 @@ def factorize_modulus(n):
         if n % i == 0:
             return i, n // i
         
+# Brute force approach to find the private exponent (alternative method)
+def brute_force_private_exponent(public_key):
+    # Brute force approach to find the private exponent 
+    e, n = public_key
+    phi = n - 1
+    for d in range(2, phi):
+        if (d * e) % phi == 1:
+            return d
