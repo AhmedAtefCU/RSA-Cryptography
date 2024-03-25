@@ -80,3 +80,13 @@ def brute_force_private_exponent(public_key):
     for d in range(2, phi):
         if (d * e) % phi == 1:
             return d
+        
+# Main program
+def main():
+    print("RSA Encryption and Decryption\n")
+    
+    # Generate keys
+    bits = int(input("Enter the number of bits for key generation: "))
+    public_key, private_key = generate_keys(bits)
+    print("\nPublic Key (e, n):", public_key)
+    print("Private Key (d, n):", private_key)
