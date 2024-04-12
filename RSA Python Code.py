@@ -67,3 +67,23 @@ def decrypt(ciphertext, private_key):
     n, d = private_key
     return pow(ciphertext, d, n)
 
+# Factorization Approach Functions
+
+def generate_keys(bits):
+    # Generates RSA Public and Private Keys 
+    if bits not in [8, 16]:
+        raise ValueError("Key generation bits must be either 8 or 16.")
+    
+    p = generate_prime(bits // 2)
+    q = generate_prime(bits // 2)
+    n = p * q
+    phi = (p - 1) * (q - 1)
+
+    while True:
+        e = random.randint(2, phi - 1)
+        if greatest_common_divisor(e, phi) == 1:
+            break
+
+    d = mod_inverse(e, phi)
+    return (n, e), (n, d)
+
