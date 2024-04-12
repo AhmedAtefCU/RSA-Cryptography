@@ -50,4 +50,10 @@ def probable_prime_numbers(n, k=10):
             return False
     return True
 
+def generate_prime(bits):
+    # Generates a Prime Number of Specified Bit Length 
+    while True:
+        p = random.randint(2**(bits - 1), 2**bits - 1)
+        if probable_prime_numbers(p):
+            return p
 
