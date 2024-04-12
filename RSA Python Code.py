@@ -16,4 +16,11 @@ def extended_euclidean_gcd(a, b):
         gcd, x, y = extended_euclidean_gcd(b % a, a)
         return gcd, y - (b // a) * x, x
     
+def mod_inverse(a, m):
+    gcd, x, _ = extended_euclidean_gcd(a, m)
+    if gcd != 1:
+        raise ValueError("Inverse does not exist.")
+    else:
+        return x % m
+    
 
