@@ -127,3 +127,14 @@ def crack_private_key_brute_force(public_key):
 
     return (n, d), runtime
 
+def main():
+    # Main Function to Run the RSA Encryption Program 
+    while True:
+        print("Welcome to RSA Cryptography Program!")
+        print("Choose an Approach to Find the Private Exponent in RSA: ")
+        print("1. Factorization Approach")
+        print("2. Brute Force Approach")
+        print("3. Exit")
+
+        approach_choice = input("Enter your Choice: ")
+        
