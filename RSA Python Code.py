@@ -162,3 +162,16 @@ def main():
             _, _, runtime = factorize_modulus(public_key[0])
             print(f"Runtime for Factorizing Modulus: {runtime:.6f} Seconds\n")
             
+        elif approach_choice == "2":
+            # Brute Force Approach
+            print("\nBrute Force Approach Chosen\n")
+            bits = int(input("Enter the Number of Bits for Key Generation (8 or 16): "))
+            if bits not in [8, 16]:
+                print("Invalid Choice! Please Enter 8 or 16")
+                continue
+            public_key, _ = generate_keys(bits)
+            private_key, runtime = crack_private_key_brute_force(public_key)
+            print(f"Public Key (n, e): {public_key}")
+            print(f"Cracked Private Key (n, d): {private_key}")
+            print(f"Runtime for Cracking Private Key: {runtime:.6f} Seconds\n")
+
