@@ -87,3 +87,20 @@ def generate_keys(bits):
     d = mod_inverse(e, phi)
     return (n, e), (n, d)
 
+def factorize_modulus(n):
+    # Factorizes the Modulus n to Retrieve the Prime Factors p and q 
+    p, q = None, None
+
+    start_time = time.perf_counter()  # Record Start Time
+
+    for i in range(2, int(math.sqrt(n)) + 1):
+        if n % i == 0:
+            p = i
+            q = n // i
+            break
+
+    end_time = time.perf_counter()  # Record End Time
+    runtime = end_time - start_time  # Calculate Runtime
+
+    return p, q, runtime
+
