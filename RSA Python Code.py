@@ -5,18 +5,21 @@ import time
 # Shared Functions: Common Mathematical Functions Used in Both the Factorization and Brute Force Approaches
 
 def greatest_common_divisor(a, b):
+    # Returns the Greatest Common Divisor of Two Numbers Using the Euclidean Algorithm 
     while b != 0:
         a, b = b, a % b
     return a
 
 def extended_euclidean_gcd(a, b):
+    # Returns the Extended Euclidean GCD Algorithm's Result for Two Numbers 
     if a == 0:
         return b, 0, 1
     else:
         gcd, x, y = extended_euclidean_gcd(b % a, a)
         return gcd, y - (b // a) * x, x
-    
+
 def mod_inverse(a, m):
+    # Returns the Modular Multiplicative Inverse of a Modulo m 
     gcd, x, _ = extended_euclidean_gcd(a, m)
     if gcd != 1:
         raise ValueError("Inverse does not exist.")
