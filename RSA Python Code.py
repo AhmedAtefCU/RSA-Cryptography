@@ -188,4 +188,6 @@ def main():
             print("Exiting the Program")
             break
         
-        
+if __name__ == "__main__":
+    main()
+    
