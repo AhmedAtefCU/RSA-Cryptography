@@ -104,3 +104,26 @@ def factorize_modulus(n):
 
     return p, q, runtime
 
+# Brute Force Approach Function
+
+def crack_private_key_brute_force(public_key):
+    # Attempts to Crack the Private Key Using a Brute Force Approach 
+    n, e = public_key
+
+    start_time = time.perf_counter()  # Record Start Time
+
+    p, q = None, None
+    for i in range(2, int(math.sqrt(n)) + 1):
+        if n % i == 0:
+            p = i
+            q = n // i
+            break
+
+    phi = (p - 1) * (q - 1)
+    d = mod_inverse(e, phi)
+
+    end_time = time.perf_counter()  # Record End Time
+    runtime = end_time - start_time  # Calculate Runtime
+
+    return (n, d), runtime
+
