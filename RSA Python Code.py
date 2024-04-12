@@ -16,3 +16,4 @@ def extended_euclidean_gcd(a, b):
         gcd, x, y = extended_euclidean_gcd(b % a, a)
         return gcd, y - (b // a) * x, x
     
+
