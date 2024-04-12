@@ -175,3 +175,17 @@ def main():
             print(f"Cracked Private Key (n, d): {private_key}")
             print(f"Runtime for Cracking Private Key: {runtime:.6f} Seconds\n")
 
+        elif approach_choice == "3":
+            # Exit
+            print("\nExiting the Program")
+            break
+
+        else:
+            print("\nInvalid Choice! Please Enter a Valid Option.\n")
+            
+        choice = input("\nWould You Like to Exit (E) or Restart (R) the Program? ")
+        if choice.upper() == "E":
+            print("Exiting the Program")
+            break
+        
+        
