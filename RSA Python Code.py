@@ -71,9 +71,9 @@ def generate_prime(bits):
             return p
 
 def encrypt(message, public_key):
-    # Encrypts a Message Using the RSA Encryption Algorithm 
-    n, e = public_key
-    return pow(message, e, n)
+    e, n = public_key
+    ciphertext = [pow(ord(char), e, n) for char in message]
+    return ciphertext
 
 def decrypt(ciphertext, private_key):
     # Decrypts a Ciphertext Using the RSA Decryption Algorithm 
