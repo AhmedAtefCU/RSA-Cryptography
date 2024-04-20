@@ -2,6 +2,9 @@ import random
 import math
 import time
 
+def print_bold_green(text):
+    print("\033[1;32m" + text + "\033[0m")
+    
 # Shared Functions: Common Mathematical Functions Used in Both the Factorization and Brute Force Approaches
 
 def greatest_common_divisor(a, b):
