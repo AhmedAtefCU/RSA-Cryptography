@@ -20,13 +20,15 @@ def greatest_common_divisor(a, b):
 
     return max(common_factors)
 
-def extended_euclidean_gcd(a, b):
-    # Returns the Extended Euclidean GCD Algorithm's Result for Two Numbers 
+def extended_gcd(a, b):
     if a == 0:
         return b, 0, 1
-    else:
-        gcd, x, y = extended_euclidean_gcd(b % a, a)
-        return gcd, y - (b // a) * x, x
+
+    gcd, x1, y1 = extended_gcd(b % a, a)
+    x = y1 - (b // a) * x1
+    y = x1
+
+    return gcd, x, y
 
 def mod_inverse(a, m):
     # Returns the Modular Multiplicative Inverse of a Modulo m 
