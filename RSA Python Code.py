@@ -28,7 +28,7 @@ def greatest_common_divisor(a, b):
 
     return max(common_factors)
 
-# Function to Ffind the Extended GCD of Two Numbers
+# Function to Find the Extended GCD of Two Numbers
 def extended_gcd(a, b):
     if a == 0:
         return b, 0, 1
@@ -80,11 +80,13 @@ def generate_prime(bits):
         if probable_prime_numbers(p):
             return p
 
+# Function to Encrypt a Message using RSA
 def encrypt(message, public_key):
     e, n = public_key
     ciphertext = [pow(ord(char), e, n) for char in message]
     return ciphertext
 
+# Function to Decrypt a Message using RSA
 def decrypt(ciphertext, private_key):
     d, n = private_key
     plaintext = [chr(pow(char, d, n)) for char in ciphertext]
@@ -92,6 +94,7 @@ def decrypt(ciphertext, private_key):
 
 # Factorization Approach Functions
 
+# Function to generate RSA public and private keys
 def generate_keys(bits):
     p = generate_prime(bits // 2)
     q = generate_prime(bits // 2)
@@ -107,6 +110,7 @@ def generate_keys(bits):
     d = modular_inverse(e, phi)
     return (e, n), (d, n), p, q
 
+# Function to Factorize n into Two Factors
 def factorize_factors(n):
     def pollard_rho(n):
         def f(x):
@@ -130,6 +134,7 @@ def factorize_factors(n):
         i += 2
     return pollard_rho(n), n // pollard_rho(n)
 
+# Function to Find the Private Exponent using Factorization Approach
 def factorization_private_key(public_key, p, q):
     start_time = time.perf_counter()
     e, n = public_key
@@ -143,6 +148,7 @@ def factorization_private_key(public_key, p, q):
 
 # Brute Force Approach Function
 
+# Function to Brute Force the Private Exponent
 def bruteforce_d(N, e, ciphertext, message, d):
     phi_N = (N - 1)
     message_length = len(message)

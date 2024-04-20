@@ -1,158 +1,177 @@
-# Shared Functions
+import random
+import math
+import time
+
+function print_bold_green(text):
+    print text in bold and green
 
 function greatest_common_divisor(a, b):
-    while b != 0:
-        a, b = b, a % b
-    return a
-
-function extended_euclidean_gcd(a, b):
-    if a == 0:
-        return b, 0, 1
-    else:
-        gcd, x, y = extended_euclidean_gcd(b % a, a)
-        return gcd, y - (b // a) * x, x
-
-function mod_inverse(a, m):
-    gcd, x, _ = extended_euclidean_gcd(a, m)
-    if gcd != 1:
-        raise ValueError("Inverse does not exist.")
-    else:
-        return x % m
-    
-function probable_prime_numbers(n, k=10):
-    if n <= 1:
-        return False
-    if n <= 3:
-        return True
-    if n % 2 == 0 or n % 3 == 0:
-        return False
-
-    r, s = 0, n - 1
-    while s % 2 == 0:
-        r += 1
-        s //= 2
-
-    for _ in range(k):
-        a = random.randint(2, n - 2)
-        x = pow(a, s, n)
-        if x == 1 or x == n - 1:
-            continue
-        for _ in range(r - 1):
-            x = pow(x, 2, n)
-            if x == n - 1:
-                break
-        else:
-            return False
-    return True
+    factors_a = set()
+    factors_b = set()
+    for i in range(1, a + 1):
+        if a % i == 0:
+            add i to factors_a
+    for i in range(1, b + 1):
+        if b % i == 0:
+            add i to factors_b
+    common_factors = intersection of factors_a and factors_b
+    return maximum value in common_factors
 
 function generate_prime(bits):
     while True:
-        p = random.randint(2**(bits - 1), 2**bits - 1)
-        if probable_prime_numbers(p):
+        p = random integer between 2^(bits-1) and 2^bits - 1
+        if p is prime:
             return p
 
-function encrypt(message, public_key):
-    n, e = public_key
-    return pow(message, e, n)
+function is_prime(n, k=5):
+    if n <= 3:
+        return n == 2 or n == 3
+    if n is even:
+        return False
+    r, s = 0, n - 1
+    while s is even:
+        increment r by 1
+        divide s by 2
+    repeat k times:
+        choose a random integer a between 2 and n - 2
+        compute x as a^s mod n
+        if x is 1 or x is n - 1:
+            continue to next iteration
+        repeat r - 1 times:
+            compute x as x^2 mod n
+            if x is n - 1:
+                break out of loop
+        if x is not n - 1:
+            return False
+    return True
 
-function decrypt(ciphertext, private_key):
-    n, d = private_key
-    return pow(ciphertext, d, n)
+function modular_inverse(a, m):
+    for x in range(1, m):
+        if (a * x) mod m is 1:
+            return x
+    raise ValueError("Inverse does not exist.")
 
-# Factorization Approach Functions
+function extended_gcd(a, b):
+    if a is 0:
+        return b, 0, 1
+    gcd, x1, y1 = extended_gcd(b mod a, a)
+    x = y1 - (b div a) * x1
+    y = x1
+    return gcd, x, y
 
 function generate_keys(bits):
-    if bits not in [8, 16]:
-        raise ValueError("Key generation bits must be either 8 or 16.")
-    
-    p = generate_prime(bits // 2)
-    q = generate_prime(bits // 2)
+    p = generate_prime(bits / 2)
+    q = generate_prime(bits / 2)
     n = p * q
     phi = (p - 1) * (q - 1)
-
     while True:
-        e = random.randint(2, phi - 1)
-        if greatest_common_divisor(e, phi) == 1:
+        e = random integer between 2 and phi - 1
+        if gcd(e, phi) is 1:
             break
+    d = modular_inverse(e, phi)
+    return (e, n), (d, n), p, q
 
-    d = mod_inverse(e, phi)
-    return (n, e), (n, d)
+function encrypt(message, public_key):
+    e, n = public_key
+    ciphertext = [char^e mod n for char in message]
+    return ciphertext
 
-function factorize_modulus(n):
-    for i in range(2, int(math.sqrt(n)) + 1):
-        if n % i == 0:
-            p = i
-            q = n // i
-            break
+function decrypt(ciphertext, private_key):
+    d, n = private_key
+    plaintext = [char^d mod n for char in ciphertext]
+    return join(plaintext)
 
-    return p, q
+function factorize_factors(n):
+    function pollard_rho(n):
+        function f(x):
+            return (x^2 + 1) mod n
+        x = 2
+        y = 2
+        d = 1
+        while d is 1:
+            x = f(x)
+            y = f(f(y))
+            d = gcd(abs(x - y), n)
+        return d
+    if n is even:
+        return 2, n / 2
+    i = 3
+    while i^2 <= n:
+        if n mod i is 0:
+            return i, n / i
+        increment i by 2
+    return pollard_rho(n), n / pollard_rho(n)
 
-# Brute Force Approach Function
-
-function crack_private_key_brute_force(public_key):
-    n, e = public_key
-
-    for i in range(2, int(math.sqrt(n)) + 1):
-        if n % i == 0:
-            p = i
-            q = n // i
-            break
-
+function factorization_private_key(public_key, p, q):
+    start_time = current time
+    e, n = public_key
+    if gcd(e, (p - 1) * (q - 1)) is not 1:
+        raise ValueError("Inverse does not exist.")
     phi = (p - 1) * (q - 1)
-    d = mod_inverse(e, phi)
+    d = modular_inverse(e, phi)
+    end_time = current time
+    runtime = (end_time - start_time) * 1000
+    return d, runtime
 
-    return (n, d)
+function bruteforce_d(N, e, ciphertext, message, d):
+    phi_N = (N - 1)
+    message_length = length of message
+    max_d = 256^message_length
+    start_time = current time
+    found_d = None
+    for d in range(d, d+1):
+        plaintext = [char^d mod N for char in ciphertext]
+        if join(plaintext) is message:
+            found_d = d
+            break
+    end_time = current time
+    runtime = (end_time - start_time) * 1000
+    if found_d is not None:
+        return found_d, runtime
+    else:
+        return None, runtime
 
 function main():
+    print_bold_green("\nWelcome to the RSA Cryptography Application! Where you can Uncover the Private Exponent Using Two Distinct Methods!")
+    print("Firstly, ")
     while True:
-        print("Welcome to RSA Cryptography Program!")
-        print("Choose an Approach to Find the Private Exponent in RSA: ")
-        print("1. Factorization Approach")
-        print("2. Brute Force Approach")
-        print("3. Exit")
-
-        approach_choice = input("Enter your Choice: ")
-        
-        if approach_choice == "1":
-            bits = int(input("Enter the Number of Bits for Key Generation (8 or 16): "))
-            if bits not in [8, 16]:
-                print("Invalid Choice! Please Enter 8 or 16")
-                continue
-            public_key, private_key = generate_keys(bits)
-            print(f"Public Key (n, e): {public_key}")
-            print(f"Private Key (n, d): {private_key}")
-
-            message = input("Enter the Message to Encrypt: ")
-            ascii_codes = [ord(char) for char in message]
-            encrypted_message = [encrypt(code, public_key) for code in ascii_codes]
-            print(f"Encrypted Message: {encrypted_message}")
-
-            decrypted_ascii_codes = [decrypt(code, private_key) for code in encrypted_message]
-            decrypted_message = "".join([chr(code) for code in decrypted_ascii_codes])
-            print(f"Decrypted Message: {decrypted_message}")
-            
-        elif approach_choice == "2":
-            bits = int(input("Enter the Number of Bits for Key Generation (8 or 16): "))
-            if bits not in [8, 16]:
-                print("Invalid Choice! Please Enter 8 or 16")
-                continue
-            public_key, _ = generate_keys(bits)
-            private_key = crack_private_key_brute_force(public_key)
-            print(f"Public Key (n, e): {public_key}")
-            print(f"Cracked Private Key (n, d): {private_key}")
-
-        elif approach_choice == "3":
-            print("\nExiting the Program")
+        try:
+            key_size = input("Choose a key size (8 or 16 bits): ")
+            if key_size not in [8, 16]:
+                raise ValueError("Key size must be 8 or 16 bits.")
             break
+        except ValueError as e:
+            print(f"Invalid input: {e}")
 
-        else:
-            print("\nInvalid Choice! Please Enter a Valid Option.\n")
-            
-        choice = input("\nWould You Like to Exit (E) or Restart (R) the Program? ")
+    public_key, private_key, p, q = generate_keys(key_size)
+    print_bold_green("\nFactorization Approach:")
+    print(f"Generated Public Key Pair (e, n): {public_key}")
+    print(f"Generated Private Key Pair (d, n): {private_key}")
+
+    d, factorization_time = factorization_private_key(public_key, p, q)
+    print("\nResultant Private Exponent of Factorization (d):", d)
+    print(f"Average Runtime for Factorization Approach: {factorization_time:.12f} Milliseconds")
+
+    print_bold_green("\nBrute Force Approach:")
+    start_time_brute_force = current time
+    try:
+        message = input("Enter the Message you Wish to Crack: ")
+        ciphertext = encrypt(message, public_key)
+        brute_force_d, brute_force_time = bruteforce_d(public_key[1], public_key[0], ciphertext, message, d)
+        print(f"Resultant Private Exponent of Brute Force (d): {brute_force_d}")
+        print(f"Average Runtime for Brute Force Approach: {brute_force_time:.12f} Milliseconds")
+        print(f"Encrypted Message: {ciphertext}")
+
+        decrypted_message = decrypt(ciphertext, private_key)
+        print(f"Decrypted Message: {decrypted_message}")
+
+    except ValueError as e:
+        print(f"Brute Force Approach Error: {e}")
+
+    while True:
+        choice = input("\nReady to Exit? Press (E) for Exiting! ")
         if choice.upper() == "E":
-            print("Exiting the Program")
             break
-        
+
 if __name__ == "__main__":
     main()
-
