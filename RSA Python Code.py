@@ -120,6 +120,17 @@ def factorize_factors(n):
         i += 2
     return pollard_rho(n), n // pollard_rho(n)
 
+def factorization_private_key(public_key, p, q):
+    start_time = time.perf_counter()
+    e, n = public_key
+    if greatest_common_divisor(e, (p - 1) * (q - 1)) != 1:
+        raise ValueError("Inverse does not exist.")
+    phi = (p - 1) * (q - 1)
+    d = modular_inverse(e, phi)
+    end_time = time.perf_counter()
+    runtime = (end_time - start_time) * 1000
+    return d, runtime
+
 # Brute Force Approach Function
 
 def crack_private_key_brute_force(public_key):
