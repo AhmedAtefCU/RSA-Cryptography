@@ -76,9 +76,9 @@ def encrypt(message, public_key):
     return ciphertext
 
 def decrypt(ciphertext, private_key):
-    # Decrypts a Ciphertext Using the RSA Decryption Algorithm 
-    n, d = private_key
-    return pow(ciphertext, d, n)
+    d, n = private_key
+    plaintext = [chr(pow(char, d, n)) for char in ciphertext]
+    return ''.join(plaintext)
 
 # Factorization Approach Functions
 
