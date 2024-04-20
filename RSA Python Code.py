@@ -97,22 +97,28 @@ def generate_keys(bits):
     d = modular_inverse(e, phi)
     return (e, n), (d, n), p, q
 
-def factorize_modulus(n):
-    # Factorizes the Modulus n to Retrieve the Prime Factors p and q 
-    p, q = None, None
+def factorize_factors(n):
+    def pollard_rho(n):
+        def f(x):
+            return (x**2 + 1) % n
 
-    start_time = time.perf_counter()  # Record Start Time
+        x = 2
+        y = 2
+        d = 1
+        while d == 1:
+            x = f(x)
+            y = f(f(y))
+            d = math.gcd(abs(x - y), n)
+        return d
 
-    for i in range(2, int(math.sqrt(n)) + 1):
+    if n % 2 == 0:
+        return 2, n // 2
+    i = 3
+    while i * i <= n:
         if n % i == 0:
-            p = i
-            q = n // i
-            break
-
-    end_time = time.perf_counter()  # Record End Time
-    runtime = end_time - start_time  # Calculate Runtime
-
-    return p, q, runtime
+            return i, n // i
+        i += 2
+    return pollard_rho(n), n // pollard_rho(n)
 
 # Brute Force Approach Function
 
