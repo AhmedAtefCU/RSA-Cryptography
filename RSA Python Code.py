@@ -23,6 +23,7 @@ def greatest_common_divisor(a, b):
         if b % i == 0:
             factors_b.add(i)
 
+    # Finding Common Factors
     common_factors = factors_a.intersection(factors_b)
 
     return max(common_factors)
