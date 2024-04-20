@@ -5,10 +5,20 @@ import time
 # Shared Functions: Common Mathematical Functions Used in Both the Factorization and Brute Force Approaches
 
 def greatest_common_divisor(a, b):
-    # Returns the Greatest Common Divisor of Two Numbers Using the Euclidean Algorithm 
-    while b != 0:
-        a, b = b, a % b
-    return a
+    factors_a = set()
+    factors_b = set()
+
+    for i in range(1, a + 1):
+        if a % i == 0:
+            factors_a.add(i)
+
+    for i in range(1, b + 1):
+        if b % i == 0:
+            factors_b.add(i)
+
+    common_factors = factors_a.intersection(factors_b)
+
+    return max(common_factors)
 
 def extended_euclidean_gcd(a, b):
     # Returns the Extended Euclidean GCD Algorithm's Result for Two Numbers 
