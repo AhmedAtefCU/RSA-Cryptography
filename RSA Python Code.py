@@ -38,6 +38,7 @@ def extended_gcd(a, b):
 
     return gcd, x, y
 
+# Function to Find the Modular Inverse of A mod M
 def modular_inverse(a, m):
     for x in range(1, m):
         if (a * x) % m == 1:
