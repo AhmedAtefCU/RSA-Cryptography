@@ -8,6 +8,7 @@ def print_bold_green(text):
     
 # Shared Functions: Common Mathematical Functions Used in Both the Factorization and Brute Force Approaches
 
+# Function to Find the Greatest Common Divisor of Two Numbers
 def greatest_common_divisor(a, b):
     factors_a = set()
     factors_b = set()
