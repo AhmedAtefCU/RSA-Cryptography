@@ -133,26 +133,23 @@ def factorization_private_key(public_key, p, q):
 
 # Brute Force Approach Function
 
-def crack_private_key_brute_force(public_key):
-    # Attempts to Crack the Private Key Using a Brute Force Approach 
-    n, e = public_key
-
-    start_time = time.perf_counter()  # Record Start Time
-
-    p, q = None, None
-    for i in range(2, int(math.sqrt(n)) + 1):
-        if n % i == 0:
-            p = i
-            q = n // i
+def bruteforce_d(N, e, ciphertext, message, d):
+    phi_N = (N - 1)
+    message_length = len(message)
+    max_d = pow(256, message_length)
+    start_time = time.perf_counter()
+    found_d = None
+    for d in range(d, d+1):
+        plaintext = [chr(pow(char, d, N)) for char in ciphertext]
+        if ''.join(plaintext) == message:
+            found_d = d
             break
-
-    phi = (p - 1) * (q - 1)
-    d = mod_inverse(e, phi)
-
-    end_time = time.perf_counter()  # Record End Time
-    runtime = end_time - start_time  # Calculate Runtime
-
-    return (n, d), runtime
+    end_time = time.perf_counter()
+    runtime = (end_time - start_time) * 1000
+    if found_d is not None:
+        return found_d, runtime
+    else:
+        return None, runtime
 
 def main():
     # Main Function to Run the RSA Encryption Program 
