@@ -30,13 +30,11 @@ def extended_gcd(a, b):
 
     return gcd, x, y
 
-def mod_inverse(a, m):
-    # Returns the Modular Multiplicative Inverse of a Modulo m 
-    gcd, x, _ = extended_euclidean_gcd(a, m)
-    if gcd != 1:
-        raise ValueError("Inverse does not exist.")
-    else:
-        return x % m
+def modular_inverse(a, m):
+    for x in range(1, m):
+        if (a * x) % m == 1:
+            return x
+    raise ValueError("Inverse does not exist.")
     
 def probable_prime_numbers(n, k=10):
     # Checks if a Number is a Probable Prime Using the Miller-Rabin Primality Test 
