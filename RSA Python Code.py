@@ -2,6 +2,7 @@ import random
 import math
 import time
 
+# Function to Print Text in Bold and Green in the Output
 def print_bold_green(text):
     print("\033[1;32m" + text + "\033[0m")
     
