@@ -169,18 +169,13 @@ def main():
     print(f"Generated Public Key Pair (e, n): {public_key}")
     print(f"Generated Private Key Pair (d, n): {private_key}")
 
-            message = input("Enter the Message to Encrypt: ")
-            ascii_codes = [ord(char) for char in message]
-            encrypted_message = [encrypt(code, public_key) for code in ascii_codes]
-            print(f"Encrypted Message: {encrypted_message}\n")
+    d, factorization_time = factorization_private_key(public_key, p, q)
+    print("\nResultant Private Exponent of Factorization (d):", d)
+    print(f"Average Runtime for Factorization Approach: {factorization_time:.12f} Milliseconds")
 
-            decrypted_ascii_codes = [decrypt(code, private_key) for code in encrypted_message]
-            decrypted_message = "".join([chr(code) for code in decrypted_ascii_codes])
-            print(f"Decrypted Message: {decrypted_message}\n")
-
-            # Calculate Runtime For Factorization
-            _, _, runtime = factorize_modulus(public_key[0])
-            print(f"Runtime for Factorizing Modulus: {runtime:.6f} Seconds\n")
+    print_bold_green("\nBrute Force Approach:")
+    start_time_brute_force = time.perf_counter()
+    try:
             
         elif approach_choice == "2":
             # Brute Force Approach
