@@ -176,19 +176,15 @@ def main():
     print_bold_green("\nBrute Force Approach:")
     start_time_brute_force = time.perf_counter()
     try:
-            
-        elif approach_choice == "2":
-            # Brute Force Approach
-            print("\nBrute Force Approach Chosen\n")
-            bits = int(input("Enter the Number of Bits for Key Generation (8 or 16): "))
-            if bits not in [8, 16]:
-                print("Invalid Choice! Please Enter 8 or 16")
-                continue
-            public_key, _ = generate_keys(bits)
-            private_key, runtime = crack_private_key_brute_force(public_key)
-            print(f"Public Key (n, e): {public_key}")
-            print(f"Cracked Private Key (n, d): {private_key}")
-            print(f"Runtime for Cracking Private Key: {runtime:.6f} Seconds\n")
+        message = input("Enter the Message you Wish to Crack: ")
+        ciphertext = encrypt(message, public_key)
+        brute_force_d, brute_force_time = bruteforce_d(public_key[1], public_key[0], ciphertext, message, d)
+        print(f"Resultant Private Exponent of Brute Force (d): {brute_force_d}")
+        print(f"Average Runtime for Brute Force Approach: {brute_force_time:.12f} Milliseconds")
+        print(f"Encrypted Message: {ciphertext}")
+
+        decrypted_message = decrypt(ciphertext, private_key)
+        print(f"Decrypted Message: {decrypted_message}")
 
         elif approach_choice == "3":
             # Exit
