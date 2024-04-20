@@ -152,15 +152,17 @@ def bruteforce_d(N, e, ciphertext, message, d):
         return None, runtime
 
 def main():
-    # Main Function to Run the RSA Encryption Program 
+    # Main Function to Run the RSA Program 
+    print_bold_green("\nWelcome to the RSA Cryptography Application! Where you can Uncover the Private Exponent Using Two Distinct Methods!")
+    print("Firstly, ")
     while True:
-        print("Welcome to RSA Cryptography Program!")
-        print("Choose an Approach to Find the Private Exponent in RSA: ")
-        print("1. Factorization Approach")
-        print("2. Brute Force Approach")
-        print("3. Exit")
-
-        approach_choice = input("Enter your Choice: ")
+        try:
+            key_size = int(input("Choose a key size (8 or 16 bits): "))
+            if key_size not in [8, 16]:
+                raise ValueError("Key size must be 8 or 16 bits.")
+            break
+        except ValueError as e:
+            print(f"Invalid input: {e}")
         
         if approach_choice == "1":
             # Factorization Approach
