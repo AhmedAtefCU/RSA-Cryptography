@@ -28,6 +28,7 @@ def greatest_common_divisor(a, b):
 
     return max(common_factors)
 
+# Function to Ffind the Extended GCD of Two Numbers
 def extended_gcd(a, b):
     if a == 0:
         return b, 0, 1
