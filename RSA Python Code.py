@@ -13,10 +13,12 @@ def greatest_common_divisor(a, b):
     factors_a = set()
     factors_b = set()
 
+    # Finding Factors of A
     for i in range(1, a + 1):
         if a % i == 0:
             factors_a.add(i)
-
+    
+    # Finding Factors of B
     for i in range(1, b + 1):
         if b % i == 0:
             factors_b.add(i)
