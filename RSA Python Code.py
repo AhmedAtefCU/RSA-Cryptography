@@ -186,19 +186,13 @@ def main():
         decrypted_message = decrypt(ciphertext, private_key)
         print(f"Decrypted Message: {decrypted_message}")
 
-        elif approach_choice == "3":
-            # Exit
-            print("\nExiting the Program")
+    except ValueError as e:
+        print(f"Brute Force Approach Error: {e}")
+
+    while True:
+        choice = input("\nReady to Exit? Press (E) for Exiting! ")
+        if choice.upper() == "E":
             break
 
-        else:
-            print("\nInvalid Choice! Please Enter a Valid Option.\n")
-            
-        choice = input("\nWould You Like to Exit (E) or Restart (R) the Program? ")
-        if choice.upper() == "E":
-            print("Exiting the Program")
-            break
-        
 if __name__ == "__main__":
     main()
-    
