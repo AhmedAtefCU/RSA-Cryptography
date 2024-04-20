@@ -164,16 +164,10 @@ def main():
         except ValueError as e:
             print(f"Invalid input: {e}")
         
-        if approach_choice == "1":
-            # Factorization Approach
-            print("\nFactorization Approach Chosen\n")
-            bits = int(input("Enter the Number of Bits for Key Generation (8 or 16): "))
-            if bits not in [8, 16]:
-                print("Invalid Choice! Please Enter 8 or 16")
-                continue
-            public_key, private_key = generate_keys(bits)
-            print(f"Public Key (n, e): {public_key}")
-            print(f"Private Key (n, d): {private_key}\n")
+    public_key, private_key, p, q = generate_keys(key_size)
+    print_bold_green("\nFactorization Approach:")
+    print(f"Generated Public Key Pair (e, n): {public_key}")
+    print(f"Generated Private Key Pair (d, n): {private_key}")
 
             message = input("Enter the Message to Encrypt: ")
             ascii_codes = [ord(char) for char in message]
